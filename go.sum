@@ -1,5 +1,7 @@
 github.com/gorilla/websocket v1.4.2 h1:+/TMaTYc4QFitKJxsQ7Yye35DkWvkdLcvGKqM+x0Ufc=
 github.com/gorilla/websocket v1.4.2/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
+github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d h1:VhgPp6v9qf9Agr/56bj7Y/xa04UccTW04VP0Qed4vnQ=
+github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d/go.mod h1:YUTz3bUH2ZwIWBy3CJBeOBEugqcmXREj14T+iG/4k4U=
 github.com/root-gg/wsp v0.0.0-20181130082503-f9c09cb22bad h1:BpdpNqYpM7YKFJSpZ2xhB5E07/iYemoqvNXrPvClhEA=
 github.com/root-gg/wsp v0.0.0-20181130082503-f9c09cb22bad/go.mod h1:asqCmcD5vGXqY2fEB9Zn9GK5xPAEmAf+zQhLFCkrERk=
 gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 h1:yhCVgyC4o1eVCa2tZl7eS0r+SDo693bJlVdllGtEeKM=
