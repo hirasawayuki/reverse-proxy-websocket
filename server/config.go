@@ -2,6 +2,7 @@ package server
 
 import (
 	"os"
+	"strconv"
 	"time"
 
 	"gopkg.in/yaml.v2"
@@ -13,6 +14,10 @@ type Config struct {
 	Timeout     int
 	IdleTimeout int
 	SecretKey   string
+}
+
+func (c Config) GetAddr() string {
+	return c.Host + ":" + strconv.Itoa(c.Port)
 }
 
 func (c Config) GetTimeout() time.Duration {
