@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/gorilla/websocket"
@@ -20,4 +21,18 @@ func NewClient(config *Config) (c *Client) {
 	c.dialer = &websocket.Dialer{}
 	c.pools = make(map[string]*Pool)
 	return
+}
+
+func (c *Client) Start(ctx context.Context) {
+	for _, target := range c.Config.Targets {
+		pool := NewPool(c, target, c.Config.SecretKey)
+		c.pools[target] = pool
+		go pool.Start(ctx)
+	}
+}
+
+func (c *Client) Shutdown() {
+	for _, pool := range c.pools {
+		pool.client.Shutdown()
+	}
 }
