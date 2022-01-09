@@ -12,7 +12,7 @@ type HTTPResponse struct {
 	ContentLength int64
 }
 
-func SerializeHTTPResponse() (r *HTTPResponse) {
+func SerializeHTTPResponse(resp *http.Response) (r *HTTPResponse) {
 	r = new(HTTPResponse)
 	r.Header = make(http.Header)
 	return
