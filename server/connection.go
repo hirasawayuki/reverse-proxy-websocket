@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/root-gg/wsp"
+	"github.com/hirasawayuki/reverse-proxy-websocket/wsp"
 )
 
 type ConnectionsStatus int

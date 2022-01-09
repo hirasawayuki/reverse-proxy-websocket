@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/root-gg/wsp"
+	"github.com/hirasawayuki/reverse-proxy-websocket/wsp"
 )
 
 type Server struct {
@@ -155,12 +155,12 @@ func (s *Server) clean() {
 func (s *Server) Request(w http.ResponseWriter, r *http.Request) {
 	dstURL := r.Header.Get("X-PROXY-DESTINATION")
 	if dstURL == "" {
-		wsp.ProxyError(w, "Missing X-PROXY-DESTINATION header")
+		wsp.ProxyErrorf(w, "Missing X-PROXY-DESTINATION header")
 		return
 	}
 	URL, err := url.Parse(dstURL)
 	if err != nil {
-		wsp.ProxyError(w, "Unable to parse X-PROXY-DESTINATION header")
+		wsp.ProxyErrorf(w, "Unable to parse X-PROXY-DESTINATION header")
 		return
 	}
 	r.URL = URL
@@ -168,7 +168,7 @@ func (s *Server) Request(w http.ResponseWriter, r *http.Request) {
 	log.Printf("[%s] %s", r.Method, r.URL.String())
 
 	if len(s.pools) == 0 {
-		wsp.ProxyError(w, "No proxy available")
+		wsp.ProxyErrorf(w, "No proxy available")
 		return
 	}
 
@@ -176,7 +176,7 @@ func (s *Server) Request(w http.ResponseWriter, r *http.Request) {
 	s.dispatcher <- request
 	connection := <-request.connection
 	if connection == nil {
-		wsp.ProxyError(w, "Unable to get a proxy connection")
+		wsp.ProxyErrorf(w, "Unable to get a proxy connection")
 		return
 	}
 
@@ -196,13 +196,13 @@ func (s *Server) Register(w http.ResponseWriter, r *http.Request) {
 
 	ws, err := s.upgrader.Upgrade(w, r, nil)
 	if err != nil {
-		wsp.ProxyError(w, "HTTP upgrade error : %v", err)
+		wsp.ProxyErrorf(w, "HTTP upgrade error : %v", err)
 		return
 	}
 
 	_, greeting, err := ws.ReadMessage()
 	if err != nil {
-		wsp.ProxyError(w, "Unable to read greeting message : %s", err)
+		wsp.ProxyErrorf(w, "Unable to read greeting message : %s", err)
 		ws.Close()
 		return
 	}
@@ -239,7 +239,7 @@ func (s *Server) status(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("ok"))
 }
 
-func (s *Server) Shutdown(w http.ResponseWriter, r *http.Request) {
+func (s *Server) Shutdown() {
 	close(s.done)
 	close(s.dispatcher)
 	for _, pool := range s.pools {

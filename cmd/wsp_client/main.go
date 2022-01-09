@@ -8,7 +8,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/root-gg/wsp/client"
+	"github.com/hirasawayuki/reverse-proxy-websocket/client"
 )
 
 func main() {
