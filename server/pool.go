@@ -51,7 +51,7 @@ func (pool *Pool) Clean() {
 	var connections []*Connection
 
 	for _, connection := range pool.connections {
-		connection.lock.Unlock()
+		connection.lock.Lock()
 		if connection.status == Idle {
 			idle++
 			if idle > pool.size {

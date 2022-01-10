@@ -23,7 +23,7 @@ func NewConfig() (config *Config) {
 		panic(err)
 	}
 	config.ID = id.String()
-	config.Targets = []string{"ws://127.0.0.1:8000/register"}
+	config.Targets = []string{"ws://127.0.0.1:8080/register"}
 	config.PoolIdleSize = 10
 	config.PoolMaxSize = 100
 	return

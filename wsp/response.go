@@ -14,7 +14,9 @@ type HTTPResponse struct {
 
 func SerializeHTTPResponse(resp *http.Response) (r *HTTPResponse) {
 	r = new(HTTPResponse)
+	r.StatusCode = resp.StatusCode
 	r.Header = make(http.Header)
+	r.ContentLength = resp.ContentLength
 	return
 }
 

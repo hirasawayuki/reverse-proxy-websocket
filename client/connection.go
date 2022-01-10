@@ -165,6 +165,12 @@ func (connection *Connection) error(msg string) (err error) {
 		return
 	}
 
+	err = connection.ws.WriteMessage(websocket.BinaryMessage, []byte(msg))
+	if err != nil {
+		log.Printf("Unable to write response body : %v", err)
+		return
+	}
+
 	return
 }
 

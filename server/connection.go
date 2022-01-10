@@ -22,11 +22,11 @@ const (
 )
 
 type Connection struct {
+	lock         sync.Mutex
 	pool         *Pool
 	ws           *websocket.Conn
 	status       ConnectionsStatus
 	idleSince    time.Time
-	lock         sync.Mutex
 	nextResponse chan chan io.Reader
 }
 
@@ -151,7 +151,7 @@ func (connection *Connection) proxyRequest(w http.ResponseWriter, r *http.Reques
 }
 
 func (connection *Connection) Take() bool {
-	connection.lock.Unlock()
+	connection.lock.Lock()
 	defer connection.lock.Unlock()
 
 	if connection.status == Closed {

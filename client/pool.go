@@ -9,8 +9,7 @@ import (
 )
 
 type Pool struct {
-	lock sync.RWMutex
-
+	lock        sync.RWMutex
 	client      *Client
 	target      string
 	secretKey   string
