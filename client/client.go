@@ -9,6 +9,7 @@ import (
 
 type Client struct {
 	Config *Config
+
 	client *http.Client
 	dialer *websocket.Dialer
 	pools  map[string]*Pool
@@ -33,6 +34,6 @@ func (c *Client) Start(ctx context.Context) {
 
 func (c *Client) Shutdown() {
 	for _, pool := range c.pools {
-		pool.client.Shutdown()
+		pool.Shutdown()
 	}
 }
